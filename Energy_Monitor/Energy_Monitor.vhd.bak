@@ -1,0 +1,53 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+Entity Energy_Monitor IS
+	PORT
+	(
+		Compare	: IN std_logic_vector (2 downto 0); --gt, eq, less
+		pb_in		: IN std_logic_vector (3 downto 0); --vacation, MC test, windows open, door open
+		lights 	: OUT std_logic_vector(7 downto 0);
+		run 		: out std_logic;
+		increase : out std_logic;
+		decrease : out std_logic
+	);
+END Energy_Monitor;
+
+
+Architecture gates OF Energy_Monitor IS
+
+Begin
+	
+	if (compare(2) = '1') then
+		decrease <= '1';
+		increase <='0';
+		
+		if (pb_in(0)='1' or pb_in(1) = '1' or pb_in(2) = '1') then
+			run <='1';
+		else
+			run<='0';
+		end if
+		
+	elsif (compare(0) = '1') then
+		decrease <='0';
+		increase <='1';
+		
+		if (pb_in(0)='1' or pb_in(1) = '1' or pb_in(2) = '1') then
+			run <='1';
+		else
+			run<='0';
+		end if
+		
+	else
+		decrease <='0';
+		increase <='0';
+		
+		if (pb_in(0)='1' or pb_in(1) = '1' or pb_in(2) = '1') then
+			run <='1';
+		else
+			run<='0';
+		end if
+		
+	end if;
+	
+END gates;
