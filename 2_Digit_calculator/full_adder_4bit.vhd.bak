@@ -1,0 +1,42 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+Entity full_adder_4bit IS
+	PORT
+	(
+		BUS0_b: IN std_logic_vector (3 downto 0);
+		BUS1_b: IN std_logic_vector (3 downto 0);
+		Carry_IN : IN std_logic;
+		Carry_Out3 : out std_logic;
+		SUM : out std_logic_vector (3 downto 0)
+	);
+END full_adder_4bit;
+
+
+
+
+Architecture gates OF full_adder IS
+
+
+component full_adder_1bit PORT
+	(
+		Input_A: IN std_logic;
+		Input_B: IN std_logic;
+		Carry_IN : IN std_logic;
+		full_adder_Carry_OUTPUT : out std_logic;
+		full_adder_sum_output : out std_logic
+	);
+END component;
+
+signal Carry_out : std_logic_vector(3 downto 0);
+
+
+Begin
+
+	INST1 : full_adder_1bit port map (BUS0_b(0), BUS1_b(0), 0, SUM(0), Carry_out(0));
+	INST2 : full_adder_1bit port map (BUS0_b(1), BUS1_b(1), Carry_out(0), SUM(1), Carry_out(1));
+	INST3 : full_adder_1bit port map (BUS0_b(2), BUS1_b(2), Carry_out(1), SUM(2), Carry_out(2));
+	INST4 : full_adder_1bit port map (BUS0_b(3), BUS1_b(3), Carry_out(2), SUM(3), Carry_OUT3);
+
+	
+END gates;

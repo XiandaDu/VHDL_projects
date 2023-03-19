@@ -1,0 +1,24 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+Entity full_adder IS
+	PORT
+	(
+		Input_A: IN std_logic;
+		Input_B: IN std_logic;
+		Half_adder_SUM_output: IN std_logic;
+		half_adder_carry_output: IN std_logic;
+		Carry_IN : IN std_logic;
+		Carry_OUTPUT : out std_logic;
+		sum_output : out std_logic
+	);
+END full_adder;
+
+Architecture gates OF full_adder IS
+
+Begin
+
+	sum_output <= (Input_A XOR INput_B );
+	carry_output <= (input_A AND input_B);
+
+END gates;
